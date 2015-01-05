@@ -43,12 +43,12 @@ instances:
     #
     # disable_ssl_validation: true
 
-    # The (optional) ssl_expire will instruct the check
-    # to create a service check that checks the expiration of the
+    # The certificate_expiration_check will instruct the check
+    # to create a service check that reports the expiration of the
     # ssl certificate. Allow for a warning to occur when x days are
     # left in the certificate.
     #
-    # check_certificate_expiration: true
+    # certificate_expiration_check: true
     # days_warning: 14
 
     # The (optional) headers parameter allows you to send extra headers

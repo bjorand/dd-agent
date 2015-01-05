@@ -28,28 +28,28 @@ class HttpSslTestCase(unittest.TestCase):
             'name' : 'Good Cert',
             'url' : 'https://github.com',
             'timeout' : 1,
-            'check_certificate_expiration': True,
+            'certificate_expiration_check': True,
             'days_warning': 14
             },
             {
             'name' : 'Warning about Cert expiring',
             'url' : 'https://github.com',
             'timeout' : 1,
-            'check_certificate_expiration': True,
+            'certificate_expiration_check': True,
             'days_warning': 9999
             },
             {
             'name' : 'Bad Url',
             'url' : 'https://thereisnosuchlink.com',
             'timeout' : 1,
-            'check_certificate_expiration': True,
+            'certificate_expiration_check': True,
             'days_warning': 14
             },
             {
             'name' : 'Mon ECP',
             'url' : 'https://my.ecp.fr',
             'timeout' : 1,
-            'check_certificate_expiration': True,
+            'certificate_expiration_check': True,
             'days_warning': 14
             },
             ]
@@ -93,7 +93,7 @@ class HttpSslTestCase(unittest.TestCase):
             'name' : 'Expired Cert',
             'url' : 'https://github.com',
             'timeout' : 1,
-            'check_certificate_expiration': True,
+            'certificate_expiration_check': True,
             'days_warning': 14
             },
             ]

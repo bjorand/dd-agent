@@ -55,12 +55,12 @@ class HTTPCheck(NetworkCheck):
             raise Exception("Bad configuration. You must specify a url")
         include_content = instance.get('include_content', False)
         ssl = instance.get('disable_ssl_validation', True)
-        ssl_expire = instance.get('check_certificate_expiration', False)
+        cert_expiration_check = instance.get('certificate_expiration_check', True)
 
-        return url, username, password, timeout, include_content, headers, response_time, tags, ssl, ssl_expire
+        return url, username, password, timeout, include_content, headers, response_time, tags, ssl, cert_expiration_check
 
     def _check(self, instance):
-        addr, username, password, timeout, include_content, headers, response_time, tags, disable_ssl_validation, ssl_expire = self._load_conf(instance)
+        addr, username, password, timeout, include_content, headers, response_time, tags, disable_ssl_validation, cert_expiration_check = self._load_conf(instance)
         content = ''
         start = time.time()
 
@@ -131,7 +131,7 @@ class HTTPCheck(NetworkCheck):
                     self.SC_STATUS, Status.UP, "UP"
                 ))
 
-        if ssl_expire:
+        if cert_expiration_check:
             status, msg = self.check_cert_expiration(instance)
             service_checks.append((
                 self.SC_SSL_CERT, status, msg
@@ -242,6 +242,10 @@ class HTTPCheck(NetworkCheck):
         url = instance.get('url')
 
         o = urlparse(url)
+        if o[0] != 'https':
+            self.log.debug("Skipping certificate expiration check"
+                ", not using HTTPS")
+            return
         host = o.netloc
 
         port = o.port or 443
